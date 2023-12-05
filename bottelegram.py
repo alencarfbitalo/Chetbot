@@ -1,39 +1,53 @@
 import telebot
 
-CHAVE_API = "6762967800:AAHF_PCM8P2-hzptzrrOGRasswAciHreEGA"
+CHAVE_API = ""
 
 bot = telebot.TeleBot(CHAVE_API)
 
+@bot.message_handler(commands=["pizza"])
+def pizza(mensagem):
+    bot.send_message(mensagem.chat.id, "Saindo a pizza pra sua casa: Tempo de espera em 20min")
 
-@bot.message_handler(commands=["Internet sem Acesso"])
-def semacesso(mensagem):
-    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
+@bot.message_handler(commands=["hamburguer"])
+def hamburguer(mensagem):
+    bot.send_message(mensagem.chat.id, "Saindo o Brabo: em 10min chega ai")
 
-@bot.message_handler(commands=["Internet com acesso Lento"])
-def acessolento(mensagem):
-    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
+@bot.message_handler(commands=["salada"])
+def salada(mensagem):
+    bot.send_message(mensagem.chat.id, "Não tem salada não, clique aqui para iniciar: /iniciar")
 
-@bot.message_handler(commands=["Financeiro"])
-def financeiro(mensagem):
-    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
-
-
-@bot.message_handler(commands=["Atendimento ao cliente"])
-def atendimentoaocliente(mensagem):
+@bot.message_handler(commands=["opcao1"])
+def opcao1(mensagem):
     texto = """
-ESCOLHA UMA OPÇÃO PARA CONTINUAR (Clique em uma opção)
-
-/semacesso semacesso
-/acessolento acessolento
-/financeiro financeiro
-
-RESPONDER QUALQUER OUTRA COISA NÃO VAI FINCIONAR, CLIQUEM EM UMA DAS OPÇÕES"""
+    O que você quer? (Clique em uma opção)
+    /pizza Pizza
+    /hamburguer Hamburguer
+    /salada Salada"""
     bot.send_message(mensagem.chat.id, texto)
 
+@bot.message_handler(commands=["opcao2"])
+def opcao2(mensagem):
+    bot.send_message(mensagem.chat.id, "Para enviar uma reclamação, mande um e-mail para reclamação@balbalba.com")
 
-@bot.message_handler(commands=["Reclamações"])
-def suportetecnicodecampo(mensagem):
-    bot.send_message(mensagem.chat.id, "Para enviar uma reclamação, mande um e-mail para reclamação@siaratec.com")
+@bot.message_handler(commands=["opcao3"])
+def opcao3(mensagem):
+    bot.send_message(mensagem.chat.id, "Valeu! Lira mandou um abraço de volta")
 
 
-    bot.polling()
+
+def verificar(mensagem):
+    return True
+
+@bot.message_handler(func=verificar)
+def responder(mensagem):
+    texto = """
+    Escolha uma opção para continuar (Clique no item):
+
+     /opcao1 Fazer um pedido
+     /opcao2 Reclamar de um pedido
+     /opcao3 Mandar um abraço pro Lira
+     
+    Responder qualquer outra coisa não vai funcionar, clique em uma das opções"""
+    bot.reply_to(mensagem, texto)
+
+bot.polling()

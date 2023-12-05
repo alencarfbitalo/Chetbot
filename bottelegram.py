@@ -1,38 +1,49 @@
 import telebot
 
-CHAVE_API = ""
+CHAVE_API = "6762967800:AAHF_PCM8P2-hzptzrrOGRasswAciHreEGA"
 
 bot = telebot.TeleBot(CHAVE_API)
 
-@bot.message_handler(commands=["pizza"])
-def pizza(mensagem):
-    bot.send_message(mensagem.chat.id, "Saindo a pizza pra sua casa: Tempo de espera em 20min")
+@bot.message_handler(commands=["Internet_sem_acesso"])
+def Internet_sem_acesso(mensagem):
+    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
 
-@bot.message_handler(commands=["hamburguer"])
-def hamburguer(mensagem):
-    bot.send_message(mensagem.chat.id, "Saindo o Brabo: em 10min chega ai")
 
-@bot.message_handler(commands=["salada"])
-def salada(mensagem):
-    bot.send_message(mensagem.chat.id, "Não tem salada não, clique aqui para iniciar: /iniciar")
+@bot.message_handler(commands=["Internet_com_acesso_lento"])
+def Internet_com_acesso_lento(mensagem):
+    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
 
-@bot.message_handler(commands=["opcao1"])
-def opcao1(mensagem):
+
+@bot.message_handler(commands=["Outros"])
+def Outros(mensagem):
+    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
+
+
+    @bot.message_handler(commands=["Voltar"])
+    def Voltar(mensagem):
+        bot.send_message(mensagem.chat.id, "clique aqui para ao menu: /Suporte")
+
+@bot.message_handler(commands=["Suporte"])
+def Suporte(mensagem):
     texto = """
-    O que você quer? (Clique em uma opção)
-    /pizza Pizza
-    /hamburguer Hamburguer
-    /salada Salada"""
+    Qual o seu Ploblema? (Clique em uma opção)
+    
+    /Internet_sem_acesso
+    
+    /Internet_com_acesso_lento
+    
+    /Outros
+    
+    /Voltar"""
     bot.send_message(mensagem.chat.id, texto)
 
-@bot.message_handler(commands=["opcao2"])
-def opcao2(mensagem):
-    bot.send_message(mensagem.chat.id, "Para enviar uma reclamação, mande um e-mail para reclamação@balbalba.com")
+@bot.message_handler(commands=["Financeiro"])
+def Financeiro(mensagem):
+    bot.send_message(mensagem.chat.id, "Aguarde, nossa equipe já vai te atender!")
 
-@bot.message_handler(commands=["opcao3"])
-def opcao3(mensagem):
-    bot.send_message(mensagem.chat.id, "Valeu! Lira mandou um abraço de volta")
-
+@bot.message_handler(commands=["ReclameAqui"])
+def ReclameAqui(mensagem):
+    bot.send_message(mensagem.chat.id, "Para enviar uma reclamação, mande um e-mail para reclamação@suaempresa.com")
 
 
 def verificar(mensagem):
@@ -41,13 +52,15 @@ def verificar(mensagem):
 @bot.message_handler(func=verificar)
 def responder(mensagem):
     texto = """
-    Escolha uma opção para continuar (Clique no item):
+Escolha uma opção para continuar (Clique no item):
 
-     /opcao1 Fazer um pedido
-     /opcao2 Reclamar de um pedido
-     /opcao3 Mandar um abraço pro Lira
-     
-    Responder qualquer outra coisa não vai funcionar, clique em uma das opções"""
+/Suporte
+
+/Financeiro
+
+/ReclameAqui
+
+Responder qualquer outra coisa não vai funcionar, clique em uma das opções"""
     bot.reply_to(mensagem, texto)
 
 bot.polling()

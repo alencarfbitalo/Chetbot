@@ -1,6 +1,6 @@
 import telebot
 
-CHAVE_API = "coloque aqui seu codigo gerado no BotFather"
+CHAVE_API = "coloque aqui o codigo gerado no BotFather"
 
 bot = telebot.TeleBot(CHAVE_API)
 
